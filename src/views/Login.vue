@@ -1,10 +1,13 @@
 <template>
-  <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm"  class="demo-ruleForm" >
-    <el-form-item label="用户名/学号" prop="logn" style="width: 200px; margin-left: 600px">
-      <el-input  v-model="ruleForm.logn" autocomplete="off" style="width: 200px"></el-input>
+  <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" class="login"
+           label-width="500px"
+           style="margin-right: 500px; margin-top: 100px">
+    <div style="color: darkgreen; font-size: 25px;padding: 40px;margin-left: 500px">欢迎登录选课系统</div>
+    <el-form-item label="用户名/学号" prop="username" >
+      <el-input  v-model="ruleForm.username" autocomplete="off"></el-input>
     </el-form-item>
-    <el-form-item label="密码" prop="password"  style="width: 200px; margin-left: 600px">
-      <el-input type="password" v-model="ruleForm.password" autocomplete="off" style="width: 200px"></el-input>
+    <el-form-item label="密码" prop="password">
+      <el-input type="password" v-model="ruleForm.password" autocomplete="off"></el-input>
     </el-form-item>
 
     <el-form-item>
@@ -15,21 +18,21 @@
   </el-form>
 </template>
 <script>
-import '../global/global.js'
+
 export default {
   name:"Login",
   data() {
-    var validatePass = (rule, value, callback) => {
+    var validateUsername = (rule, value, callback) => {
       if (value === '') {
         callback(new Error('请输入用户名'));
       } else {
-        if (this.ruleForm.logn !== '') {
-           //this.$refs.ruleForm.validateField('logn');
+        if (this.ruleForm.username !== '') {
+           //this.$refs.ruleForm.validateField('username');
         }
         callback();
       }
     };
-    var validatePass2 = (rule, value, callback) => {
+    var validatePassword = (rule, value, callback) => {
       if (value === '') {
         callback(new Error('请输入密码'));
       } else {
@@ -42,17 +45,16 @@ export default {
 
     return {
       ruleForm: {
-        logn: '',
+        username: '',
         password: '',
       },
       rules: {
-        logn: [
-          { validator: validatePass, trigger: 'blur' }
+        username: [
+          { validator: validateUsername, trigger: 'blur' }
         ],
         password: [
-          { validator: validatePass2, trigger: 'blur' }
+          { validator: validatePassword, trigger: 'blur' }
         ]
-
       }
     };
   },
@@ -61,46 +63,94 @@ export default {
       let _this = this;
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          // alert('submit!');
-          axios.post("http://localhost:9090" + '/student/login',{
-            username: _this.ruleForm.logn,
-            password:_this.ruleForm.password
-          }).then(function(resp){
-            if(resp.data === 2){
-              _this.$router.push({
-                name: "SystemManagement", // ️注：这里不能用path路径，只能用name【请对照router.js中的路由规则中的name项】，否则取不到传过去的数据
-                params: {
-                  logn: _this.ruleForm.logn,
-                }
-              });
-            }
-            else if(resp.data == 1){
-              _this.$router.push({
-                name: "StudentManagement", // ️注：这里不能用path路径，只能用name【请对照router.js中的路由规则中的name项】，否则取不到传过去的数据
-                params: {
-                  logn: _this.ruleForm.logn,
-                }
-              });
-              sessionStorage.setItem("logn",_this.ruleForm.logn);
-            }
-            else{
-              _this.$alert('登陆失败！','提示',{
-                confirmButtonText : '确定',
-                callback : action => {
-                  location.reload();
-                }
-              })
-            }
-          })
+          var usernameLength = _this.ruleForm.username.length;
+          if(usernameLength === 8){
+            _this.gotoStudentInterface(_this);
+          }
+          else if(usernameLength == 5){
+            _this.gotoTeacherInterface(_this);
+          }
+          else if(usernameLength == 6){
+            _this.gotoAdminInterface(_this);
+          }
         } else {
           console.log('error submit!!');
           return false;
         }
       });
     },
+
     resetForm(formName) {
       this.$refs[formName].resetFields();
+    },
+
+    gotoStudentInterface(_this) {
+      axios.post("http://localhost:9090/student/login",{
+        username: _this.ruleForm.username,
+        password: _this.ruleForm.password
+      }).then(function(resp){
+        if(resp.data === 1){
+          _this.$router.push({
+            name: "StudentManagement", // ️注：这里不能用path路径，只能用name【请对照router.js中的路由规则中的name项】，否则取不到传过去的数据
+            params: {
+              username: _this.ruleForm.username,
+            }
+          });
+          sessionStorage.setItem("username",_this.ruleForm.username);
+        }
+        else{
+          _this.$alert('登陆失败！','提示',{
+            confirmButtonText : '确定',
+            callback : action => {
+              location.reload();
+            }
+          })
+        }
+      })
+    },
+    gotoTeacherInterface(_this){
+      axios.post("http://localhost:9090/teacher/login",{
+        username: _this.ruleForm.username,
+        password: _this.ruleForm.password
+      }).then(function(resp){
+        if(resp.data === 1){
+          _this.$router.push({
+            name: "TeacherManagement", // ️注：这里不能用path路径，只能用name【请对照router.js中的路由规则中的name项】，否则取不到传过去的数据
+            params: {
+              username: _this.ruleForm.username,
+            }
+          });
+          sessionStorage.setItem("username",_this.ruleForm.username);
+        }
+        else{
+          _this.$alert('登陆失败！','提示',{
+            confirmButtonText : '确定',
+            callback : action => {
+              location.reload();
+            }
+          })
+        }
+      })
+    },
+    gotoAdminInterface(_this){
+      if(_this.ruleForm.username==='SYSTEM' && _this.ruleForm.password==='SYSTEM'){
+        _this.$router.push({
+          name: "AdminManagement", // ️注：这里不能用path路径，只能用name【请对照router.js中的路由规则中的name项】，否则取不到传过去的数据
+          params: {
+            username: _this.ruleForm.username,
+          }
+        });
+      }
+      else{
+        _this.$alert('登陆失败！','提示',{
+          confirmButtonText : '确定',
+          callback : action => {
+            location.reload();
+          }
+        })
+      }
     }
   }
 }
 </script>
+
