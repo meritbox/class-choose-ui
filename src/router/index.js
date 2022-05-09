@@ -5,10 +5,16 @@ import Login from "../views/Login";
 import StudentManagement from "../views/StudentManagement";
 import TeacherManagement from "../views/TeacherManagement";
 import AdminManagement from "../views/AdminManagement";
+import AdminPlanManagement from "../views/AdminPlanManagement";
 
 Vue.use(VueRouter)
 
 const routes = [
+  {
+    path: '/plan',
+    name: 'AdminPlanManagement',
+    component: AdminPlanManagement
+  },
   {
     path: '/adminManagement',
     name: 'AdminManagement',

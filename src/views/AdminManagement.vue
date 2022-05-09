@@ -1,10 +1,18 @@
 <template>
-  <div>admin</div>
+  <div>
+    <Header></Header>
+    <div style="display: flex">
+      <Aside></Aside>
+      <router-view/>
+    </div>
+  </div>
 </template>
 
 <script>
+import Aside from "../components/Aside";
 export default {
-  name: "AdminManagement"
+  name: "AdminManagement",
+  components: {Aside}
 }
 </script>
 
