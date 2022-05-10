@@ -5,10 +5,10 @@
         <template #title>
           <span>学生课程管理</span>
         </template>
-        <el-menu-item index="/StudentChoose">选课</el-menu-item>
-        <el-menu-item index="/StudentQuit">退课</el-menu-item>
-        <el-menu-item index="/StudentCurriculum">我的课表</el-menu-item>
-        <el-menu-item index="/StudentGrade">我的成绩</el-menu-item>
+        <el-menu-item index="/studentChoose">选课</el-menu-item>
+        <el-menu-item index="/studentDrop">退课</el-menu-item>
+        <el-menu-item index="/studentTimeTable">我的课表</el-menu-item>
+        <el-menu-item index="/studentInfo">学生信息</el-menu-item>
       </el-sub-menu>
     </el-menu>
   </div>

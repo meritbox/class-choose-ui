@@ -10,6 +10,10 @@ import AdminDepartment from "../views/AdminDepartment";
 import AdminStudent from "../views/AdminStudent";
 import AdminTeacher from "../views/AdminTeacher";
 import AdminClazz from "../views/AdminClazz";
+import StudentChoose from "../views/StudentChoose";
+import StudentDrop from "../views/StudentDrop";
+import StudentInfo from "../views/StudentInfo";
+import StudentTimetable from "../views/StudentTimetable";
 
 
 Vue.use(VueRouter)
@@ -54,15 +58,39 @@ const routes = [
     ]
   },
   {
+    path: '/student',
+    name: 'Student',
+    component: Student,
+    children: [
+      {
+        path: '/studentChoose',
+        name: 'StudentChoose',
+        component: StudentChoose
+      },
+      {
+        path: '/studentDrop',
+        name: 'StudentDrop',
+        component: StudentDrop
+      },
+      {
+        path: '/studentTimetable',
+        name: 'StudentTimetable',
+        component: StudentTimetable
+      },
+      {
+        path: '/studentInfo',
+        name: 'StudentInfo',
+        component: StudentInfo
+      },
+
+    ]
+  },
+  {
     path: '/teacher',
     name: 'Teacher',
     component: Teacher
   },
-  {
-    path: '/student',
-    name: 'Student',
-    component: Student
-  },
+
   {
     path: '/login',
     name: 'Login',
