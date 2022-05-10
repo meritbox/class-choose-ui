@@ -1,34 +1,37 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
+import AdminPlan from "../views/AdminPlan";
 import Login from "../views/Login";
-import StudentManagement from "../views/StudentManagement";
-import TeacherManagement from "../views/TeacherManagement";
-import AdminManagement from "../views/AdminManagement";
-import AdminPlanManagement from "../views/AdminPlanManagement";
+import Admin from "../views/Admin"
+import Teacher from "../views/Teacher";
+import Student from "../views/Student";
+
 
 Vue.use(VueRouter)
 
 const routes = [
+
   {
-    path: '/plan',
-    name: 'AdminPlanManagement',
-    component: AdminPlanManagement
+    path: '/admin',
+    name: 'Admin',
+    component: Admin,
+    children: [
+      {
+        path: '/plan',
+        name: 'AdminPlan',
+        component: AdminPlan
+      },
+    ]
   },
   {
-    path: '/adminManagement',
-    name: 'AdminManagement',
-    component: AdminManagement
+    path: '/teacher',
+    name: 'Teacher',
+    component: Teacher
   },
   {
-    path: '/teacherManagement',
-    name: 'TeacherManagement',
-    component: TeacherManagement
-  },
-  {
-    path: '/studentManagement',
-    name: 'StudentManagement',
-    component: StudentManagement
+    path: '/student',
+    name: 'Student',
+    component: Student
   },
   {
     path: '/login',

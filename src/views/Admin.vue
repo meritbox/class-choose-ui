@@ -10,9 +10,10 @@
 
 <script>
 import Aside from "../components/Aside";
+import Header from "../components/Header";
 export default {
-  name: "AdminManagement",
-  components: {Aside}
+  name: "Admin",
+  components: {Header, Aside}
 }
 </script>
 

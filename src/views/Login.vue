@@ -91,7 +91,7 @@ export default {
       }).then(function(resp){
         if(resp.data === 1){
           _this.$router.push({
-            name: "StudentManagement", // ️注：这里不能用path路径，只能用name【请对照router.js中的路由规则中的name项】，否则取不到传过去的数据
+            name: "Student", // ️注：这里不能用path路径，只能用name【请对照router.js中的路由规则中的name项】，否则取不到传过去的数据
             params: {
               username: _this.ruleForm.username,
             }
@@ -115,7 +115,7 @@ export default {
       }).then(function(resp){
         if(resp.data === 1){
           _this.$router.push({
-            name: "TeacherManagement", // ️注：这里不能用path路径，只能用name【请对照router.js中的路由规则中的name项】，否则取不到传过去的数据
+            name: "Teacher", // ️注：这里不能用path路径，只能用name【请对照router.js中的路由规则中的name项】，否则取不到传过去的数据
             params: {
               username: _this.ruleForm.username,
             }
@@ -135,7 +135,7 @@ export default {
     gotoAdminInterface(_this){
       if(_this.ruleForm.username==='SYSTEM' && _this.ruleForm.password==='SYSTEM'){
         _this.$router.push({
-          name: "AdminManagement", // ️注：这里不能用path路径，只能用name【请对照router.js中的路由规则中的name项】，否则取不到传过去的数据
+          name: "Admin", // ️注：这里不能用path路径，只能用name【请对照router.js中的路由规则中的name项】，否则取不到传过去的数据
           params: {
             username: _this.ruleForm.username,
           }

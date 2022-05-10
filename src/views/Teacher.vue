@@ -10,9 +10,10 @@
 
 <script>
 import AsideForTeacher from "../components/AsideForTeacher";
+import Header from "../components/Header";
 export default {
-  name: "TeacherManagement",
-  components: {AsideForTeacher}
+  name: "Teacher",
+  components: {Header, AsideForTeacher}
 }
 </script>
 

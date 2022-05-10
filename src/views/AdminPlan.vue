@@ -29,7 +29,7 @@
 
 <script>
 export default {
-  name: "AdminPlanManagement",
+  name: "AdminPlan",
   created() {
     let _this = this;
     axios.get("http://localhost:9090/plan/getAll").then(function (resp){
