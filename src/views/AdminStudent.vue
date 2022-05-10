@@ -17,12 +17,12 @@
       </el-table-column>
       <el-table-column
           prop="sex"
-          label="性别"
-          width="180">
+          label="性别">
       </el-table-column>
       <el-table-column
-          prop="dno"
-          label="学院">
+          prop="department"
+          label="学院"
+          width="180">
       </el-table-column>
       <el-table-column
           prop="gpa"

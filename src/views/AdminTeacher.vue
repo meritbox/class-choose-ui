@@ -13,15 +13,16 @@
       <el-table-column
           prop="tname"
           label="教师姓名"
-          width="180">
+          width="150">
       </el-table-column>
       <el-table-column
           prop="sex"
           label="性别">
       </el-table-column>
       <el-table-column
-          prop="dno"
-          label="学院">
+          prop="department"
+          label="学院"
+          width="180">
       </el-table-column>
     </el-table>
   </div>

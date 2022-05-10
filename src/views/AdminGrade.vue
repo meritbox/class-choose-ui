@@ -7,24 +7,35 @@
         style="width: 100%">
       <el-table-column
           prop="id"
-          label="条目"
-          width="180">
+          label="条目">
       </el-table-column>
       <el-table-column
           prop="sno"
+          label="学号"
+          width="150">
+      </el-table-column>
+      <el-table-column
+          prop="sname"
           label="学生"
-          width="180">
+          width="100">
       </el-table-column>
       <el-table-column
           prop="cno"
-          label="课程">
+          label="课程号"
+          width="150">
+      </el-table-column>
+      <el-table-column
+          prop="cname"
+          label="课程"
+          width="200">
       </el-table-column>
       <el-table-column
           prop="term"
-          label="学期">
+          label="学期"
+          width="130">
       </el-table-column>
       <el-table-column
-          prop="tno"
+          prop="tname"
           label="教师">
       </el-table-column>
       <el-table-column
