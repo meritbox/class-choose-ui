@@ -6,54 +6,50 @@
         border
         style="width: 100%">
       <el-table-column
+          prop="id"
+          label="条目"
+          width="180">
+      </el-table-column>
+      <el-table-column
+          prop="sno"
+          label="学生"
+          width="180">
+      </el-table-column>
+      <el-table-column
           prop="cno"
-          label="课号"
-          width="180">
+          label="课程">
       </el-table-column>
       <el-table-column
-          prop="cname"
-          label="课程名"
-          width="180">
-      </el-table-column>
-      <el-table-column
-          prop="credit"
-          label="学分"
-          width="180">
+          prop="term"
+          label="学期">
       </el-table-column>
       <el-table-column
           prop="tno"
           label="教师">
       </el-table-column>
       <el-table-column
-          prop="time"
-          label="上课时间">
+          prop="usualGrade"
+          label="平时成绩">
       </el-table-column>
       <el-table-column
-          prop="dno"
-          label="开课学院">
+          prop="finalGrade"
+          label="期末成绩">
       </el-table-column>
       <el-table-column
-          prop="location"
-          label="上课地点">
+          prop="totalGrade"
+          label="总成绩">
       </el-table-column>
-      <el-table-column
-          prop="capacity"
-          label="课程容量">
-      </el-table-column>
-      <el-table-column
-          prop="curNum"
-          label="选课人数">
-      </el-table-column>
+
     </el-table>
   </div>
 </template>
 
 <script>
 export default {
-  name: "AdminPlan",
+  name: "AdminGrade",
   created() {
     let _this = this;
-    axios.get("http://localhost:9090/plan/getAll").then(function (resp){
+    axios.get("http://localhost:9090/grade/getAll").then(function (resp){
       _this.tableData = resp.data;
     })
   },

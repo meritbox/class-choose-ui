@@ -17,32 +17,11 @@
       </el-table-column>
       <el-table-column
           prop="credit"
-          label="学分"
-          width="180">
-      </el-table-column>
-      <el-table-column
-          prop="tno"
-          label="教师">
-      </el-table-column>
-      <el-table-column
-          prop="time"
-          label="上课时间">
+          label="学分">
       </el-table-column>
       <el-table-column
           prop="dno"
-          label="开课学院">
-      </el-table-column>
-      <el-table-column
-          prop="location"
-          label="上课地点">
-      </el-table-column>
-      <el-table-column
-          prop="capacity"
-          label="课程容量">
-      </el-table-column>
-      <el-table-column
-          prop="curNum"
-          label="选课人数">
+          label="课程院系">
       </el-table-column>
     </el-table>
   </div>
@@ -50,16 +29,20 @@
 
 <script>
 export default {
-  name: "AdminPlan",
+  name: "AdminClazz",
   created() {
     let _this = this;
-    axios.get("http://localhost:9090/plan/getAll").then(function (resp){
+    axios.get("http://localhost:9090/clazz/getAll").then(function (resp){
       _this.tableData = resp.data;
     })
   },
   data() {
     return {
-      tableData: []
+      tableData: [{
+        date: '2016-05-03',
+        name: '王小虎',
+        address: '上海市普陀区金沙江路 1518 弄'
+      }]
     }
   }
 }

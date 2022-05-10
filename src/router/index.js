@@ -5,6 +5,11 @@ import Login from "../views/Login";
 import Admin from "../views/Admin"
 import Teacher from "../views/Teacher";
 import Student from "../views/Student";
+import AdminGrade from "../views/AdminGrade";
+import AdminDepartment from "../views/AdminDepartment";
+import AdminStudent from "../views/AdminStudent";
+import AdminTeacher from "../views/AdminTeacher";
+import AdminClazz from "../views/AdminClazz";
 
 
 Vue.use(VueRouter)
@@ -17,9 +22,34 @@ const routes = [
     component: Admin,
     children: [
       {
-        path: '/plan',
+        path: '/adminPlan',
         name: 'AdminPlan',
         component: AdminPlan
+      },
+      {
+        path: '/adminGrade',
+        name: 'AdminGrade',
+        component: AdminGrade
+      },
+      {
+        path: '/adminDepartment',
+        name: 'AdminDepartment',
+        component: AdminDepartment
+      },
+      {
+        path: '/adminStudent',
+        name: 'AdminStudent',
+        component: AdminStudent
+      },
+      {
+        path: '/adminTeacher',
+        name: 'AdminTeacher',
+        component: AdminTeacher
+      },
+      {
+        path: '/adminClazz',
+        name: 'AdminClazz',
+        component: AdminClazz
       },
     ]
   },
