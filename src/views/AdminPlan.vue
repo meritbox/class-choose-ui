@@ -157,7 +157,7 @@ export default {
   methods:{
     handleAdd() {
       let _this = this;
-      axios.post("http://localhost:9090/plan/add",
+      axios.post("http://localhost:9090/plan/addPlan",
           {
           pno : _this.pno,
           cno : _this.cno,
@@ -166,6 +166,20 @@ export default {
           term : _this.term,
           location : _this.location,
           capacity : _this.capacity
+      }).then(function (resp){
+        if(resp.data){
+          _this.$alert('添加成功','提示',{
+            confirmButtonText : '确定',
+            callback : action => {
+              location.reload();
+            }
+          });
+        }
+        else{
+          _this.$alert('添加失败','提示',{
+            confirmButtonText : '确定'
+          });
+        }
       })
     },
 
@@ -194,13 +208,18 @@ export default {
       });
     },
   },
+
   data() {
     return {
       tableData: [],
       dialogVisible2: false,
+      pno : '',
       cno : '',
-      time:'',
-      capacity:''
+      tno : '',
+      time : '',
+      term : '',
+      location : '',
+      capacity : ''
     }
   }
 }

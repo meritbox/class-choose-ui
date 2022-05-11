@@ -5,8 +5,8 @@
         <template #title>
           <span>教师课程管理</span>
         </template>
-        <el-menu-item index="/TeacherCurriculum">我的课程</el-menu-item>
-        <el-menu-item index="/TeacherGrade" disabled>成绩登入</el-menu-item>
+        <el-menu-item index="/TeacherSelectedCourse">我的班级</el-menu-item>
+
       </el-sub-menu>
     </el-menu>
   </div>
@@ -18,6 +18,7 @@
 export default {
   name: "AsideForTeacher",
   components: {
+
   }
 }
 </script>
