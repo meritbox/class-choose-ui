@@ -68,13 +68,37 @@ export default {
   },
   data() {
     return {
-      tableData: []
+      tableData: [],
+      sno:''
     }
   },
   methods:{
     doChoose(row){
       console.log(row)
+      let _this = this;
+      let sno = sessionStorage.getItem("username");
+      axios.get("http://localhost:9090/selectedCourse/chooseClass/"+sno+"/"+row.pno).then(function (resp){
+        if(resp.data==1){
+          _this.$alert('选课成功','提示',{
+            confirmButtonText : '确定',
+            callback : action => {
+              location.reload();
+            }
+          });
+        }
+        else if(resp.data==-1){
+          _this.$alert('选课失败，时间冲突','提示',{
+            confirmButtonText : '确定'
+          });
+        }
+        else {
+          _this.$alert('选课失败，已修过该课','提示',{
+            confirmButtonText : '确定'
+          });
+        }
+      })
     }
+
   }
 }
 </script>
