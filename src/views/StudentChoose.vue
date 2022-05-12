@@ -77,6 +77,8 @@ export default {
       console.log(row)
       let _this = this;
       let sno = sessionStorage.getItem("username");
+      console.log(sno)
+      console.log(row.pno)
       axios.get("http://localhost:9090/selectedCourse/chooseClass/"+sno+"/"+row.pno).then(function (resp){
         if(resp.data==1){
           _this.$alert('选课成功','提示',{
