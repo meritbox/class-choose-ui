@@ -64,7 +64,7 @@ export default {
   },
   data() {
     return {
-      currentUser: sessionStorage.getItem("currentName"),
+      currentUser: sessionStorage.getItem("username"),
       departmentName: sessionStorage.getItem("currentDepName"),
       dialogVisible: false,
       form: {}
@@ -73,7 +73,7 @@ export default {
   methods: {
     changePwd() {
       this.form = {}
-      this.form.id = sessionStorage.getItem("currentId");
+      this.form.id = sessionStorage.getItem("username");
       this.form.name = sessionStorage.getItem("currentName");
       this.dialogVisible = true;
     },
