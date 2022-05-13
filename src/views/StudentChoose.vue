@@ -18,7 +18,7 @@
       <el-table-column
           prop="credit"
           label="学分"
-          width="180">
+          width="50">
       </el-table-column>
       <el-table-column
           prop="tno"
@@ -54,6 +54,14 @@
         </template>
       </el-table-column>
     </el-table>
+    <el-pagination
+        style="margin-top: 20px"
+        background
+        layout="prev, pager, next"
+        :current-page="pageIndex"
+        :total="total"
+        @current-change="changePage">
+    </el-pagination>
   </div>
 </template>
 
@@ -62,14 +70,23 @@ export default {
   name: "StudentChoose",
   created() {
     let _this = this;
-    axios.get("http://localhost:9090/plan/getAll").then(function (resp){
+    axios.get("http://localhost:9090/plan/getPage/" + this.pageIndex +'/'+ this.pageSize).then(function (resp){
       _this.tableData = resp.data;
+    })
+
+    axios.get("http://localhost:9090/plan/getTotal").then(function (resp){
+      _this.total = resp.data;
     })
   },
   data() {
     return {
       tableData: [],
-      sno:''
+      sno:'',
+
+      pageIndex: 1,
+      pageSize: 10,
+
+      total: 0
     }
   },
   methods:{
@@ -93,13 +110,25 @@ export default {
             confirmButtonText : '确定'
           });
         }
-        else {
+        else if(resp.data==-2){
           _this.$alert('选课失败，已修过该课','提示',{
             confirmButtonText : '确定'
           });
         }
+        else {
+          _this.$alert('选课失败，选课人数已满','提示',{
+            confirmButtonText : '确定'
+          });
+        }
+      })
+    },
+    changePage(currentPage){
+      let _this = this;
+      axios.get("http://localhost:9090/plan/getPage/" + currentPage +'/'+ this.pageSize).then(function (resp){
+        _this.tableData = resp.data;
       })
     }
+
 
   }
 }

@@ -52,6 +52,14 @@
       </el-table-column>
 
     </el-table>
+    <el-pagination
+        style="margin-top: 20px"
+        background
+        layout="prev, pager, next"
+        :current-page="pageIndex"
+        :total="total"
+        @current-change="changePage">
+    </el-pagination>
   </div>
 </template>
 
@@ -60,13 +68,30 @@ export default {
   name: "AdminGrade",
   created() {
     let _this = this;
-    axios.get("http://localhost:9090/grade/getAll").then(function (resp){
+
+    axios.get("http://localhost:9090/grade/getPage/" + this.pageIndex +'/'+ this.pageSize).then(function (resp){
       _this.tableData = resp.data;
     })
+
+    axios.get("http://localhost:9090/grade/getTotal").then(function (resp){
+      _this.total = resp.data;
+    })
+  },
+  methods:{
+    changePage(currentPage){
+      let _this = this;
+      axios.get("http://localhost:9090/grade/getPage/" + currentPage +'/'+ this.pageSize).then(function (resp){
+        _this.tableData = resp.data;
+      })
+    }
+
   },
   data() {
     return {
-      tableData: []
+      tableData: [],
+      pageIndex:1,
+      pageSize:10,
+      total:0
     }
   }
 }

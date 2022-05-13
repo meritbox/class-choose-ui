@@ -38,6 +38,15 @@
       </el-table-column>
     </el-table>
 
+    <el-pagination
+        style="margin-top: 20px"
+        background
+        layout="prev, pager, next"
+        :current-page="pageIndex"
+        :total="total"
+        @current-change="changePage">
+    </el-pagination>
+
     <!--    编辑教师信息-->
     <el-dialog
         title="编辑教师信息"
@@ -118,7 +127,7 @@
 
 
     <el-button
-        style="margin-top: 50px"
+        style="margin-top: 10px"
         size="mini"
         type="success"
         @click="dialogVisible2=true">添加</el-button>
@@ -130,8 +139,12 @@ export default {
   name: "AdminTeacher",
   created() {
     let _this = this;
-    axios.get("http://localhost:9090/teacher/getAll").then(function (resp){
+    axios.get("http://localhost:9090/teacher/getPage/" + this.pageIndex +'/'+ this.pageSize).then(function (resp){
       _this.tableData = resp.data;
+    })
+
+    axios.get("http://localhost:9090/teacher/getTotal").then(function (resp){
+      _this.total = resp.data;
     })
   },
   methods:{
@@ -218,6 +231,13 @@ export default {
           });
         }
       })
+    },
+
+    changePage(currentPage){
+      let _this = this;
+      axios.get("http://localhost:9090/teacher/getPage/" + currentPage +'/'+ this.pageSize).then(function (resp){
+        _this.tableData = resp.data;
+      })
     }
   },
   data() {
@@ -230,7 +250,11 @@ export default {
       sex:'',
       dno:'',
       department:'',
-      password:''
+      password:'',
+
+      pageIndex:1,
+      pageSize:10,
+      total:0
     }
   }
 }

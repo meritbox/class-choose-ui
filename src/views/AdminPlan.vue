@@ -45,11 +45,11 @@
           label="选课人数">
       </el-table-column>
 
-      <el-table-column label="操作" width = "150">
+      <el-table-column label="操作" width = "200" header-align="center" >
         <template slot-scope="scope">
-<!--          <el-button-->
-<!--              size="mini"-->
-<!--              @click="handleEdit(scope.row), dialogVisible = true">编辑</el-button>-->
+          <el-button
+              size="mini"
+              @click="handleEdit(scope.row), dialogVisible = true">编辑课程容量</el-button>
           <el-button
               size="mini"
               type="danger"
@@ -60,19 +60,41 @@
 
     </el-table>
 
-    <el-table-column label="操作" width = "150">
-      <template slot-scope="scope">
-        <el-button
-            size="mini"
-            @click="handleEdit(scope.row), dialogVisible = true">编辑</el-button>
-        <el-button
-            size="mini"
-            type="danger"
-            @click="handleDelete(scope.row)">删除</el-button>
-      </template>
+    <el-pagination
+        style="margin-top: 20px"
+        background
+        layout="prev, pager, next"
+        :current-page="pageIndex"
+        :total="total"
+        @current-change="changePage">
+    </el-pagination>
 
-    </el-table-column>
+<!--    编辑选课人数限制，别的改起来冲突太多了-->
+    <el-dialog
+        title="编辑课程容量"
+        :visible.sync="dialogVisible"
+        width="30%">
 
+      <el-input
+          style="height: 50px"
+          placeholder="课程名"
+          v-model="cname"
+          disabled>
+      </el-input>
+
+      <el-input
+          style="height: 50px"
+          placeholder="课程容量"
+          v-model="capacity"
+          clearable>
+      </el-input>
+
+      <span slot="footer" class="dialog-footer">
+      <el-button @click="dialogVisible = false">取消</el-button>
+      <el-button type="primary" @click="handleEdit2() ,dialogVisible = false">确定</el-button>
+
+    </span>
+    </el-dialog>
 <!--    添加-->
     <el-dialog
         title="添加选课信息"
@@ -137,7 +159,7 @@
 
 
     <el-button
-        style="margin-top: 50px"
+        style="margin-top: 10px"
         size="mini"
         type="success"
         @click="dialogVisible2=true">添加</el-button>
@@ -150,11 +172,40 @@ export default {
   name: "AdminPlan",
   created() {
     let _this = this;
-    axios.get("http://localhost:9090/plan/getAll").then(function (resp){
+    axios.get("http://localhost:9090/plan/getPage/" + this.pageIndex +'/'+ this.pageSize).then(function (resp){
       _this.tableData = resp.data;
+    })
+
+    axios.get("http://localhost:9090/plan/getTotal").then(function (resp){
+      _this.total = resp.data;
     })
   },
   methods:{
+    handleEdit(row){
+      this.pno = row.pno
+      this.cname = row.cname
+      this.capacity = row.capacity
+    },
+    handleEdit2(){
+      let _this = this;
+      axios.get("http://localhost:9090/plan/updateCapacity/"+_this.pno+"/"+_this.capacity).then(function (resp){
+        if(resp.data){
+          console.log((_this.pno,_this.capacity))
+          _this.$alert('修改成功','提示',{
+            confirmButtonText : '确定',
+            callback : action => {
+              location.reload();
+            }
+          });
+        }
+        else{
+          _this.$alert('修改失败','提示',{
+            confirmButtonText : '确定'
+          });
+        }
+      })
+    },
+
     handleAdd() {
       let _this = this;
       axios.post("http://localhost:9090/plan/addPlan",
@@ -207,19 +258,32 @@ export default {
         });
       });
     },
+    changePage(currentPage){
+      let _this = this;
+      axios.get("http://localhost:9090/plan/getPage/" + currentPage +'/'+ this.pageSize).then(function (resp){
+        _this.tableData = resp.data;
+      })
+    }
   },
 
   data() {
     return {
       tableData: [],
+      dialogVisible:false,
       dialogVisible2: false,
       pno : '',
       cno : '',
+      cname:'',
       tno : '',
       time : '',
       term : '',
       location : '',
-      capacity : ''
+      capacity : '',
+
+      total:0,
+      pageIndex:1,
+      pageSize:10
+
     }
   }
 }

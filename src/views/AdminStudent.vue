@@ -42,6 +42,14 @@
       </el-table-column>
     </el-table>
 
+    <el-pagination
+        style="margin-top: 20px"
+        background
+        layout="prev, pager, next"
+        :current-page="pageIndex"
+        :total="total"
+        @current-change="changePage">
+    </el-pagination>
 <!--    编辑学生信息-->
     <el-dialog
         title="编辑学生信息"
@@ -129,7 +137,7 @@
     </el-dialog>
 
     <el-button
-        style="margin-top: 50px"
+        style="margin-top: 10px"
         size="mini"
         type="success"
         @click="dialogVisible2=true">添加</el-button>
@@ -141,9 +149,12 @@ export default {
   name: "AdminStudent",
   created() {
     let _this = this;
-    axios.get("http://localhost:9090/student/getAll").then(function (resp){
+    axios.get("http://localhost:9090/student/getPage/" + this.pageIndex +'/'+ this.pageSize).then(function (resp){
       _this.tableData = resp.data;
+    })
 
+    axios.get("http://localhost:9090/student/getTotal").then(function (resp){
+      _this.total = resp.data;
     })
   },
 methods:{
@@ -153,6 +164,7 @@ methods:{
     this.sex = row.sex
     this.dno = row.dno
     this.department = row.department
+    this.gpa = row.gpa
   },
   handleEdit2(){
     let _this = this;
@@ -232,6 +244,13 @@ methods:{
       }
     })
   },
+
+  changePage(currentPage){
+    let _this = this;
+    axios.get("http://localhost:9090/student/getPage/" + currentPage +'/'+ this.pageSize).then(function (resp){
+      _this.tableData = resp.data;
+    })
+  }
 },
 
 
@@ -246,7 +265,11 @@ methods:{
       dno:'',
       department:'',
       gpa:'',
-      password:''
+      password:'',
+
+      pageIndex:1,
+      pageSize:10,
+      total:0
     }
   }
 }

@@ -8,7 +8,7 @@
       <el-table-column
           prop="cno"
           label="课号"
-          width="180">
+          width="150">
       </el-table-column>
       <el-table-column
           prop="cname"
@@ -21,7 +21,8 @@
       </el-table-column>
       <el-table-column
           prop="department"
-          label="课程院系">
+          label="课程院系"
+          width="'300">
       </el-table-column>
 
       <el-table-column label="操作" width = "150">

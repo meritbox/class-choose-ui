@@ -20,6 +20,10 @@
           label="课程">
       </el-table-column>
       <el-table-column
+          prop="credit"
+          label="学分">
+      </el-table-column>
+      <el-table-column
           prop="term"
           label="学期"
           width="150">
