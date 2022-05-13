@@ -218,12 +218,22 @@ export default {
           location : _this.location,
           capacity : _this.capacity
       }).then(function (resp){
-        if(resp.data){
+        if(resp.data>0){
           _this.$alert('添加成功','提示',{
             confirmButtonText : '确定',
             callback : action => {
               location.reload();
             }
+          });
+        }
+        else if(resp.data == -1){
+          _this.$alert('添加失败,老师冲突','提示',{
+            confirmButtonText : '确定'
+          });
+        }
+        else if(resp.data == -2){
+          _this.$alert('添加失败,地点冲突','提示',{
+            confirmButtonText : '确定'
           });
         }
         else{
