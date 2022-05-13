@@ -8,7 +8,7 @@
       <el-table-column
           prop="cno"
           label="课号"
-          width="180">
+          width="100">
       </el-table-column>
       <el-table-column
           prop="cname"
@@ -22,6 +22,11 @@
       <el-table-column
           prop="tname"
           label="教师">
+      </el-table-column>
+      <el-table-column
+          prop="term"
+          label="学期"
+          width="100">
       </el-table-column>
       <el-table-column
           prop="time"
@@ -164,6 +169,16 @@
         type="success"
         @click="dialogVisible2=true">添加</el-button>
 
+    <el-select v-model="value" clearable placeholder="选择学期" @clear="changePage(1,10)" @change="changeTerm">
+      <el-option
+          v-for="item in options"
+          :key="item.value"
+          :label="item.label"
+          :value="item.value">
+      </el-option>
+    </el-select>
+
+
   </div>
 </template>
 
@@ -273,6 +288,13 @@ export default {
       axios.get("http://localhost:9090/plan/getPage/" + currentPage +'/'+ this.pageSize).then(function (resp){
         _this.tableData = resp.data;
       })
+    },
+    changeTerm(value){
+      let _this = this;
+      console.log(value);
+      axios.get("http://localhost:9090/plan/getByTerm/"+value).then(function (resp){
+        _this.tableData = resp.data;
+      })
     }
   },
 
@@ -292,7 +314,25 @@ export default {
 
       total:0,
       pageIndex:1,
-      pageSize:10
+      pageSize:10,
+
+      options: [{
+        value: '2019年春',
+        label: '2019年春'
+      }, {
+        value: '2019年夏',
+        label: '2019年夏'
+      }, {
+        value: '2019年秋',
+        label: '2019年秋'
+      }, {
+        value: '2019年冬',
+        label: '2019年冬'
+      }, {
+        value: '2020年春',
+        label: '2020年春'
+      }],
+      value:'选择学期'
 
     }
   }
