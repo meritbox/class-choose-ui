@@ -88,10 +88,8 @@ export default {
   data() {
     return {
       tableData: [],
-
       pageIndex: 1,
       pageSize: 10,
-
       total: 0
     }
   }

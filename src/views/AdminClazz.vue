@@ -17,12 +17,13 @@
       </el-table-column>
       <el-table-column
           prop="credit"
-          label="学分">
+          label="学分"
+          width="100">
       </el-table-column>
       <el-table-column
           prop="department"
           label="课程院系"
-          width="'300">
+          width="200">
       </el-table-column>
 
       <el-table-column label="操作" width = "150">

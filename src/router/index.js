@@ -15,6 +15,7 @@ import StudentDrop from "../views/StudentDrop";
 import StudentInfo from "../views/StudentInfo";
 import StudentTimetable from "../views/StudentTimetable";
 import TeacherSelectedCourse from "../views/TeacherSelectedCourse";
+import ClassTable from "../views/ClassTable";
 
 
 Vue.use(VueRouter)
@@ -76,7 +77,8 @@ const routes = [
       {
         path: '/studentTimetable',
         name: 'StudentTimetable',
-        component: StudentTimetable
+        component: StudentTimetable,
+
       },
       {
         path: '/studentInfo',
@@ -103,7 +105,14 @@ const routes = [
     path: '/login',
     name: 'Login',
     component: Login
+  },
+
+  {
+    path:'/classTable',
+    name: 'ClassTable',
+    component: ClassTable
   }
+
 ]
 
 const router = new VueRouter({
