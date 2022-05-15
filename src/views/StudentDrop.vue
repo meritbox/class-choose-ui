@@ -49,7 +49,7 @@ export default {
   name: "StudentDrop",
   created() {
     let _this = this;
-    let sno = sessionStorage.getItem("username");
+    let sno = sessionStorage.getItem("sno");
     console.log(sno);
     axios.get("http://localhost:9090/selectedCourse/findMyClass/"+sno).then(function (resp){
       _this.tableData = resp.data;
@@ -84,7 +84,7 @@ export default {
   data() {
     return {
       tableData: [],
-      sno:sessionStorage.getItem("username")
+      sno:sessionStorage.getItem("sno")
     }
   }
 }

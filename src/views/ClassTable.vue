@@ -71,7 +71,7 @@ export default {
 
       classTableDataLength:5,
       sno: "19122169"
-          // this.sessionStorage.getItem("username")
+          // this.sessionStorage.getItem("sno")
 
     }
 

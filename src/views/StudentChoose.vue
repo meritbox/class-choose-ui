@@ -93,7 +93,7 @@ export default {
     doChoose(row){
       console.log(row)
       let _this = this;
-      let sno = sessionStorage.getItem("username");
+      let sno = sessionStorage.getItem("sno");
       console.log(sno)
       console.log(row.pno)
       axios.get("http://localhost:9090/selectedCourse/chooseClass/"+sno+"/"+row.pno).then(function (resp){

@@ -16,6 +16,8 @@ import StudentInfo from "../views/StudentInfo";
 import StudentTimetable from "../views/StudentTimetable";
 import TeacherSelectedCourse from "../views/TeacherSelectedCourse";
 import ClassTable from "../views/ClassTable";
+import TeacherCourses from "../views/TeacherCourses";
+import TeacherCourseMember from "../views/TeacherCourseMember";
 
 
 Vue.use(VueRouter)
@@ -98,6 +100,16 @@ const routes = [
         name: 'TeacherSelectedCourse',
         component: TeacherSelectedCourse
       },
+      {
+        path: '/teacherCourses',
+        name: 'TeacherCourses',
+        component: TeacherCourses
+      },
+      {
+        path: '/teacherCourseMember',
+        name: 'TeacherCourseMember',
+        component: TeacherCourseMember
+      }
     ]
   },
 

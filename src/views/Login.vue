@@ -96,7 +96,7 @@ export default {
               username: _this.ruleForm.username,
             }
           });
-          sessionStorage.setItem("username",_this.ruleForm.username);
+          sessionStorage.setItem("sno",_this.ruleForm.username);
         }
         else{
           _this.$alert('登陆失败！','提示',{
@@ -120,7 +120,7 @@ export default {
               username: _this.ruleForm.username,
             }
           });
-          sessionStorage.setItem("username",_this.ruleForm.username);
+          sessionStorage.setItem("tno",_this.ruleForm.username);
         }
         else{
           _this.$alert('登陆失败！','提示',{

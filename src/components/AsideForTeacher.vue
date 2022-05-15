@@ -5,8 +5,8 @@
         <template #title>
           <span>教师课程管理</span>
         </template>
-        <el-menu-item index="/TeacherSelectedCourse">我的班级</el-menu-item>
-
+        <el-menu-item index="/TeacherSelectedCourse">成绩录入</el-menu-item>
+        <el-menu-item index="/TeacherCourses">我的班级</el-menu-item>
       </el-sub-menu>
     </el-menu>
   </div>
