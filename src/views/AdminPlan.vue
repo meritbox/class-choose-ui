@@ -169,7 +169,7 @@
         type="success"
         @click="dialogVisible2=true">添加</el-button>
 
-    <el-select v-model="value" clearable placeholder="选择学期" @clear="changePage(1,10)" @change="changeTerm">
+    <el-select v-model="value" clearable placeholder="选择学期" @change="changeTerm">
       <el-option
           v-for="item in options"
           :key="item.value"
@@ -285,16 +285,38 @@ export default {
     },
     changePage(currentPage){
       let _this = this;
-      axios.get("http://localhost:9090/plan/getPage/" + currentPage +'/'+ this.pageSize).then(function (resp){
-        _this.tableData = resp.data;
-      })
+      console.log(currentPage);
+      if(_this.value == '全部学期'){
+        axios.get("http://localhost:9090/plan/getPage/" + currentPage +'/'+ this.pageSize).then(function (resp){
+          _this.tableData = resp.data;
+        })
+      }
+      else{
+        axios.get("http://localhost:9090/plan/getByTerm/"+_this.value+'/'+currentPage+'/'+_this.pageSize).then(function (resp){
+          _this.tableData = resp.data;
+        })
+      }
     },
     changeTerm(value){
       let _this = this;
       console.log(value);
-      axios.get("http://localhost:9090/plan/getByTerm/"+value).then(function (resp){
-        _this.tableData = resp.data;
-      })
+      if(value=='全部学期'){
+        axios.get("http://localhost:9090/plan/getTotal").then(function (resp){
+          _this.total = resp.data;
+        })
+        axios.get("http://localhost:9090/plan/getPage/" + '1' +'/'+ this.pageSize).then(function (resp){
+          _this.tableData = resp.data;
+        })
+      }
+      else {
+        axios.get("http://localhost:9090/plan/getByTerm/"+value+'/'+'1'+"/"+this.pageSize).then(function (resp){
+          _this.tableData = resp.data;
+        })
+        axios.get("http://localhost:9090/plan/getByTermTotal/"+value).then(function (resp){
+          _this.total = resp.data;
+        })
+      }
+
     }
   },
 
@@ -329,10 +351,10 @@ export default {
         value: '2019年冬',
         label: '2019年冬'
       }, {
-        value: '2020年春',
-        label: '2020年春'
+        value: '全部学期',
+        label: '全部学期'
       }],
-      value:'选择学期'
+      value:'全部学期'
 
     }
   }
