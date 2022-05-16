@@ -35,7 +35,7 @@
       <el-table-column
           prop="department"
           label="开课学院"
-          width="180">
+          width="130">
       </el-table-column>
       <el-table-column
           prop="location"
@@ -50,11 +50,14 @@
           label="选课人数">
       </el-table-column>
 
-      <el-table-column label="操作" width = "200" header-align="center" >
+      <el-table-column label="操作" width = "400" header-align="center" >
         <template slot-scope="scope">
           <el-button
               size="mini"
               @click="handleEdit(scope.row), dialogVisible = true">编辑课程容量</el-button>
+          <el-button
+              size="mini"
+              @click="handleRefToStudent(scope.row), dialogVisible = true">查看选课学生</el-button>
           <el-button
               size="mini"
               type="danger"
@@ -317,6 +320,16 @@ export default {
         })
       }
 
+    },
+
+    handleRefToStudent(row){
+      let _this = this
+      sessionStorage.setItem("aps_tno",row.tno)
+      sessionStorage.setItem("aps_term",row.term)
+      sessionStorage.setItem("aps_cno",row.cno)
+      this.$router.push({
+        name: 'AdminPlanStudent'
+      })
     }
   },
 

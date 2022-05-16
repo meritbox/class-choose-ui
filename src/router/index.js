@@ -18,6 +18,7 @@ import TeacherSelectedCourse from "../views/TeacherSelectedCourse";
 import ClassTable from "../views/ClassTable";
 import TeacherCourses from "../views/TeacherCourses";
 import TeacherCourseMember from "../views/TeacherCourseMember";
+import AdminPlanStudent from "../views/AdminPlanStudent";
 
 
 Vue.use(VueRouter)
@@ -59,6 +60,11 @@ const routes = [
         name: 'AdminClazz',
         component: AdminClazz
       },
+      {
+        path: '/adminPlanStudent',
+        name: 'AdminPlanStudent',
+        component: AdminPlanStudent
+      }
     ]
   },
   {
