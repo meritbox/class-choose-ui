@@ -1,5 +1,12 @@
 <template>
   <div>
+    <div>{{this.tno}}</div>
+    <div>{{this.term}}</div>
+    <div>{{this.cno}}</div>
+    <div>{{this.cname}}</div>
+    <el-button
+        size="mini"
+        @click="getRefBack">返回</el-button>
     <el-table
         :data="tableData"
         height="600"
@@ -45,14 +52,9 @@
           label="总评成绩"
           width="150">
       </el-table-column>
-      <el-table-column label="操作" width = "150">
-        <template slot-scope="scope">
-          <el-button
-              size="mini"
-              @click="handleEdit(scope.row), dialogVisible = true">录入成绩</el-button>
-        </template>
-      </el-table-column>
+
     </el-table>
+
     <el-pagination
         style="margin-top: 20px"
         background
@@ -72,6 +74,11 @@ export default {
   },
 
   methods:{
+    getRefBack(){
+      this.$router.push({
+        name : "TeacherCourses"
+      })
+    },
     handleReq(){
       let _this = this
       axios.get("http://localhost:9090/grade/getByTnoTermCno",{
@@ -86,6 +93,16 @@ export default {
         _this.tableData = resp.data;
         console.log(_this.tableData)
       })
+      axios.get("http://localhost:9090/grade/getTotalClazzMember",{
+        params:{
+          tno: _this.tno,
+          term: _this.term,
+          cno: _this.cno
+        }
+      }).then(resp=>{
+        _this.total = resp.data;
+        console.log(_this.tableData)
+      })
     }
   },
   data() {
@@ -94,9 +111,9 @@ export default {
       pageIndex: 1,
       pageSize: 10,
       total: 0,
-      tno: this.$route.params.tno,
-      term: this.$route.params.term,
-      cno: this.$route.params.cno,
+      tno: sessionStorage.getItem("tc_tno"),
+      term: sessionStorage.getItem("tc_term"),
+      cno: sessionStorage.getItem("tc_cno")
     }
   }
 }

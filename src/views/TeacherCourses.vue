@@ -68,13 +68,11 @@ export default {
     },
     handleRefToClazz(row) {
       let _this = this
+      sessionStorage.setItem("tc_tno",_this.tno)
+      sessionStorage.setItem("tc_term",_this.value)
+      sessionStorage.setItem("tc_cno",row.cno)
       this.$router.push({
-        name: 'TeacherCourseMember',
-        params: {
-          tno: _this.tno,
-          term: _this.value,
-          cno: row.cno
-        }
+        name: 'TeacherCourseMember'
       })
     }
   },
@@ -84,7 +82,7 @@ export default {
       pageIndex: 1,
       pageSize: 10,
       total: 0,
-      tno:'',
+      tno:sessionStorage.getItem("tno"),
       options: [{
         value: '2019年春',
         label: '2019年春'
