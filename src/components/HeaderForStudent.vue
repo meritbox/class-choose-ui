@@ -13,7 +13,7 @@
       <el-dropdown>
         <el-row>
           <!--此处会在当前用户姓名左侧显示欢迎词，但效果不理想，登录后需要重新刷新界面才能正常显示-->
-          <span style="color: #409EFF">{{ departmentName }}</span>
+          <span style="color: #409EFF">{{ sname }}</span>
           <span class="el-dropdown-link">{{ currentUser }}
             <el-icon class="el-icon--right"><arrow-down/></el-icon>
           </span>
@@ -23,6 +23,9 @@
           <el-dropdown-menu>
             <el-dropdown-item @click="changePwd">修改密码</el-dropdown-item>
             <el-dropdown-item @click="$router.push('/login')">退出登录</el-dropdown-item>
+            <el-dropdown-item @click="$router.push({path:'/login'})">退出登录</el-dropdown-item>
+            <el-dropdown-item @click="$router.push({name:'Login'})">退出登录</el-dropdown-item>
+
           </el-dropdown-menu>
         </template>
       </el-dropdown>
@@ -58,22 +61,28 @@
 import request from "@/utils/request";
 
 export default {
-  name: "Header",
+  name: "HeaderForStudent",
   components: {
 
+  },  created() {
+    let _this = this;
+    axios.get("http://localhost:9090/student/getSname/"+_this.currentUser).then(function (resp) {
+      _this.sname = resp.data;
+    })
   },
   data() {
     return {
-      currentUser: sessionStorage.getItem("username"),
-      departmentName: sessionStorage.getItem("currentDepName"),
+      currentUser: sessionStorage.getItem("sno"),
+      // departmentName: sessionStorage.getItem("currentDepName"),
       dialogVisible: false,
-      form: {}
+      form: {},
+      sname:''
     }
   },
   methods: {
     changePwd() {
       this.form = {}
-      this.form.id = sessionStorage.getItem("username");
+      this.form.id = sessionStorage.getItem("sno");
       this.form.name = sessionStorage.getItem("currentName");
       this.dialogVisible = true;
     },

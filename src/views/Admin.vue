@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Header></Header>
+    <HeaderForTeacher></HeaderForTeacher>
     <div style="display: flex">
       <Aside></Aside>
       <router-view/>
@@ -10,10 +10,10 @@
 
 <script>
 import Aside from "../components/Aside";
-import Header from "../components/Header";
+import HeaderForTeacher from "../components/HeaderForTeacher";
 export default {
   name: "Admin",
-  components: {Header, Aside}
+  components: {HeaderForTeacher, Aside}
 }
 </script>
 

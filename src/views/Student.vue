@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Header></Header>
+    <HeaderForStudent></HeaderForStudent>
     <div style="display: flex">
       <AsideForStudent></AsideForStudent>
       <router-view/>
@@ -11,10 +11,10 @@
 <script>
 
 import AsideForStudent from "../components/AsideForStudent";
-import Header from "../components/Header";
+import HeaderForStudent from "../components/HeaderForStudent";
 export default {
   name: "Student",
-  components: {Header, AsideForStudent}
+  components: {HeaderForStudent, AsideForStudent}
 
 }
 </script>
