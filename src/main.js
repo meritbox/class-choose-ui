@@ -5,7 +5,9 @@ import './plugins/axios'
 import './plugins/element.js'
 import store from './store'
 import './global/global.js'
+import * as echarts from 'echarts';
 
+Vue.prototype.$echarts = echarts
 Vue.config.productionTip = false
 
 new Vue({

@@ -1,5 +1,7 @@
 <template>
   <div>
+    <el-input v-model="input" placeholder="模糊搜索课程名" @change="getBySearch"></el-input>
+
     <el-table
         :data="tableData"
         height="600"
@@ -21,7 +23,7 @@
           width="50">
       </el-table-column>
       <el-table-column
-          prop="tno"
+          prop="tname"
           label="教师">
       </el-table-column>
       <el-table-column
@@ -29,7 +31,7 @@
           label="上课时间">
       </el-table-column>
       <el-table-column
-          prop="dno"
+          prop="department"
           label="开课学院">
       </el-table-column>
       <el-table-column
@@ -86,7 +88,10 @@ export default {
       pageIndex: 1,
       pageSize: 10,
 
-      total: 0
+      total: 0,
+
+      value: '',
+      input: ''
     }
   },
   methods:{
@@ -127,8 +132,13 @@ export default {
       axios.get("http://localhost:9090/plan/getPage/" + currentPage +'/'+ this.pageSize).then(function (resp){
         _this.tableData = resp.data;
       })
+    },
+    getBySearch(value){
+      let _this = this;
+      axios.get("http://localhost:9090/plan/getBySearch/" + _this.input).then(function (resp){
+        _this.tableData = resp.data;
+      })
     }
-
 
   }
 }

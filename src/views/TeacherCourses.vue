@@ -24,7 +24,7 @@
       <el-table-column
           prop="cname"
           label="课程名"
-          width="120">
+          width="150">
       </el-table-column>
       <el-table-column
           prop="credit"
@@ -41,6 +41,9 @@
           <el-button
               size="mini"
               @click="handleRefToClazz(scope.row)">查看班级</el-button>
+          <el-button
+              size="mini"
+              @click="handleRefToAvgGrade(scope.row)">平均分展示</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -74,7 +77,16 @@ export default {
       this.$router.push({
         name: 'TeacherCourseMember'
       })
-    }
+    },
+    handleRefToAvgGrade(row) {
+      let _this = this
+      sessionStorage.setItem("tc_tno",_this.tno)
+      sessionStorage.setItem("tc_cno",row.cno)
+      sessionStorage.setItem("tc_cname",row.cname)
+      this.$router.push({
+        name: 'TeacherCourseDistribution'
+      })
+}
   },
   data() {
     return {

@@ -31,14 +31,14 @@
 <!--        </template>-->
 <!--      </el-dropdown>-->
 <!--    </div>-->
-    <div style="margin: auto">
-      <el-dropdown>
+    <div style="margin: auto" >
+      <el-dropdown @command="handleCommand">
         <span class="el-dropdown-link">
           {{currentUser}}  {{tname}}<i class="el-icon-arrow-down el-icon--right"></i>
         </span>
-          <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item @click="changePwd">修改密码</el-dropdown-item>
-            <el-dropdown-item @click="goBackToLogin">退出登录</el-dropdown-item>
+          <el-dropdown-menu slot="dropdown" >
+            <el-dropdown-item command="a">修改密码</el-dropdown-item>
+            <el-dropdown-item command="b">退出登录</el-dropdown-item>
           </el-dropdown-menu>
       </el-dropdown>
     </div>
@@ -46,10 +46,10 @@
 
   </div>
 
-  <el-dialog v-model="dialogVisible" title="修改密码" width="30%">
+  <el-dialog :visible.sync="dialogVisible" title="修改密码" width="30%">
     <el-form :model="form" label-width="120px">
       <el-form-item label="工号">
-        <el-input v-model="form.id" style="width: 80%;" readonly/>
+        <el-input v-model="form.username" style="width: 80%;" readonly/>
       </el-form-item>
       <el-form-item label="姓名">
         <el-input v-model="form.name" style="width: 80%;" readonly/>
@@ -61,7 +61,7 @@
         <el-input v-model="form.confirm" style="width: 80%;" type="password"/>
       </el-form-item>
     </el-form>
-    <template #footer>
+    <template>
       <span>
         <el-button @click="dialogVisible = false">取 消</el-button>
         <el-button type="primary" @click="update">确 定</el-button>
@@ -72,7 +72,6 @@
 </template>
 
 <script>
-import request from "@/utils/request";
 
 export default {
   name: "HeaderForTeacher",
@@ -97,12 +96,17 @@ export default {
   },
   methods: {
     changePwd() {
+      console.log("changepwd");
       this.form = {};
-      this.form.id = sessionStorage.getItem("tno");
+      this.form.username = sessionStorage.getItem("tno");
       this.form.name = this.tname;
       this.dialogVisible = true;
+      console.log(this.form.username);
+      console.log(this.form.name);
+      console.log(this.dialogVisible);
     },
     update() {
+      let _this=this;
       if (this.form.password != this.form.confirm) {
         this.$message({
           type: "error",
@@ -112,40 +116,39 @@ export default {
         this.form.confirm = ""
         return;
       }
-      if (this.form.id.length == 8) { // 学生修改密码
-        request.put("/student", this.form).then(res => {
-          if (res.code === '0') {
-            this.$message({
-              type: "success",
-              message: "修改成功"
-            })
-          } else {
-            this.$message({
-              type: "error",
-              message: res.msg
-            })
-          }
-        })
-      } else { // 教师修改密码
-        request.put("/teacher", this.form).then(res => {
-          if (res.code === '0') {
-            this.$message({
-              type: "success",
-              message: "修改成功"
-            })
-          } else {
-            this.$message({
-              type: "error",
-              message: res.msg
-            })
-          }
-        })
-      }
+
+        axios.post("http://localhost:9090/teacher/updatePwd",{
+          username: _this.form.username,
+          password: _this.form.password
+        }).then(function (resp){
+          console.log(resp.data);
+        if(resp.data){
+          _this.$alert('修改成功','提示',{
+            confirmButtonText : '确定',
+            callback : action => {
+              location.reload();
+            }
+          });
+        }
+        else{
+          _this.$alert('修改失败','提示',{
+            confirmButtonText : '确定'
+          });
+        }
+      })
       this.dialogVisible = false
     },
     goBackToLogin(){
       console.log('push')
-      this.$router.push({name:'login'})
+      this.$router.push({name:'Login'})
+    },
+    handleCommand(command){
+      if(command=="a"){
+        this.changePwd();
+      }
+      else if(command=="b"){
+        this.goBackToLogin();
+      }
     }
   }
 }
