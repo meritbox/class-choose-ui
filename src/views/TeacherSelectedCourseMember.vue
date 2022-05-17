@@ -183,16 +183,16 @@ export default {
     },
     handleEdit2(){
       let _this = this;
-      axios.post("http://localhost:9090/selectedCourse/updateGrade",
-          {
-            sno: _this.sno,
-            cno: _this.cno,
-            tno: _this.tno,
-            rate: _this.value,
-            usualGrade: _this.usualGrade,
-            finalGrade: _this.finalGrade
-          }
-      ).then(function (resp){
+      axios.get("http://localhost:9090/selectedCourse/updateGrade", {
+        params:{
+          sno: _this.sno,
+          cno: _this.cno,
+          tno: _this.tno,
+          rate: _this.value,
+          usualGrade: _this.usualGrade,
+          finalGrade: _this.finalGrade
+        }
+      }).then(function (resp){
         if(resp.data){
           _this.$alert('修改成功','提示',{
             confirmButtonText : '确定',
