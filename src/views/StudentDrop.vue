@@ -1,5 +1,11 @@
 <template>
   <div>
+    <el-row>
+      <el-col :span="12"><div class="grid-content bg-purple-light">本学期已修学分：{{sum}}</div></el-col>
+      <el-col :span="12"><div class="grid-content bg-purple-light">本学期选课数目：{{num}}</div></el-col>
+<!--      <el-col :span="24"><div class="grid-content bg-purple-dark"></div></el-col>-->
+    </el-row>
+
     <el-table
         :data="tableData"
         height="600"
@@ -54,6 +60,12 @@ export default {
     axios.get("http://localhost:9090/selectedCourse/findMyClass/"+sno).then(function (resp){
       _this.tableData = resp.data;
     })
+    axios.get("http://localhost:9090/selectedCourse/getNumBySno/"+sno).then(function (resp){
+      _this.num = resp.data;
+    })
+    axios.get("http://localhost:9090/selectedCourse/getSumBySno/"+sno).then(function (resp){
+      _this.sum = resp.data;
+    })
   },
   methods:{
     handleDelete(row){
@@ -84,12 +96,39 @@ export default {
   data() {
     return {
       tableData: [],
-      sno:sessionStorage.getItem("sno")
+      sno:sessionStorage.getItem("sno"),
+      num : 0,
+      sum : 0
     }
   }
 }
 </script>
 
 <style scoped>
-
+.el-row {
+    margin-bottom: 20px;
+  &:last-child {
+     margin-bottom: 0;
+   }
+}
+.el-col {
+  border-radius: 4px;
+}
+.bg-purple-dark {
+  background: #99a9bf;
+}
+.bg-purple {
+  background: #d3dce6;
+}
+.bg-purple-light {
+  background: #e5e9f2;
+}
+.grid-content {
+  border-radius: 4px;
+  min-height: 36px;
+}
+.row-bg {
+  padding: 10px 0;
+  background-color: #f9fafc;
+}
 </style>

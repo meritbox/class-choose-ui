@@ -10,35 +10,32 @@
 
     <!--3、下拉框，包括修改密码和退出登录-->
     <div style="width: 200px; margin: auto;">
-      <el-dropdown>
+      <el-dropdown @command="handleCommand">
         <el-row>
           <!--此处会在当前用户姓名左侧显示欢迎词，但效果不理想，登录后需要重新刷新界面才能正常显示-->
           <span style="color: #409EFF">{{ sname }}</span>
-          <span class="el-dropdown-link">{{ currentUser }}
+          <span class="el-dropdown-link">{{ username }}
             <el-icon class="el-icon--right"><arrow-down/></el-icon>
           </span>
         </el-row>
 
         <template #dropdown>
-          <el-dropdown-menu>
-            <el-dropdown-item @click="changePwd">修改密码</el-dropdown-item>
-            <el-dropdown-item @click="$router.push('/login')">退出登录</el-dropdown-item>
-            <el-dropdown-item @click="$router.push({path:'/login'})">退出登录</el-dropdown-item>
-            <el-dropdown-item @click="$router.push({name:'Login'})">退出登录</el-dropdown-item>
-
+          <el-dropdown-menu slot="dropdown" >
+            <el-dropdown-item command="a">修改密码</el-dropdown-item>
+            <el-dropdown-item command="b">退出登录</el-dropdown-item>
           </el-dropdown-menu>
         </template>
       </el-dropdown>
     </div>
   </div>
 
-  <el-dialog v-model="dialogVisible" title="修改密码" width="30%">
+  <el-dialog :visible.sync="dialogVisible" title="修改密码" width="30%">
     <el-form :model="form" label-width="120px">
-      <el-form-item label="学号/工号">
-        <el-input v-model="form.id" style="width: 80%;" readonly/>
+      <el-form-item label="学号">
+        <el-input v-model="form.username" style="width: 80%;" readonly/>
       </el-form-item>
       <el-form-item label="姓名">
-        <el-input v-model="form.name" style="width: 80%;" readonly/>
+        <el-input v-model="form.sname" style="width: 80%;" readonly/>
       </el-form-item>
       <el-form-item label="输入密码">
         <el-input v-model="form.password" style="width: 80%;" type="password"/>
@@ -47,7 +44,7 @@
         <el-input v-model="form.confirm" style="width: 80%;" type="password"/>
       </el-form-item>
     </el-form>
-    <template #footer>
+    <template>
       <span>
         <el-button @click="dialogVisible = false">取 消</el-button>
         <el-button type="primary" @click="update">确 定</el-button>
@@ -58,7 +55,6 @@
 </template>
 
 <script>
-import request from "@/utils/request";
 
 export default {
   name: "HeaderForStudent",
@@ -66,13 +62,13 @@ export default {
 
   },  created() {
     let _this = this;
-    axios.get("http://localhost:9090/student/getSname/"+_this.currentUser).then(function (resp) {
+    axios.get("http://localhost:9090/student/getSname/"+_this.username).then(function (resp) {
       _this.sname = resp.data;
     })
   },
   data() {
     return {
-      currentUser: sessionStorage.getItem("sno"),
+      username: sessionStorage.getItem("sno"),
       // departmentName: sessionStorage.getItem("currentDepName"),
       dialogVisible: false,
       form: {},
@@ -82,11 +78,12 @@ export default {
   methods: {
     changePwd() {
       this.form = {}
-      this.form.id = sessionStorage.getItem("sno");
-      this.form.name = sessionStorage.getItem("currentName");
+      this.form.username = sessionStorage.getItem("sno");
+      this.form.sname = this.sname;
       this.dialogVisible = true;
     },
     update() {
+      let _this = this
       if (this.form.password != this.form.confirm) {
         this.$message({
           type: "error",
@@ -96,46 +93,42 @@ export default {
         this.form.confirm = ""
         return;
       }
-      if (this.form.id.length == 8) { // 学生修改密码
-        request.put("/student", this.form).then(res => {
-          if (res.code === '0') {
-            this.$message({
-              type: "success",
-              message: "修改成功"
-            })
-          } else {
-            this.$message({
-              type: "error",
-              message: res.msg
-            })
-          }
-        })
-      } else { // 教师修改密码
-        request.put("/teacher", this.form).then(res => {
-          if (res.code === '0') {
-            this.$message({
-              type: "success",
-              message: "修改成功"
-            })
-          } else {
-            this.$message({
-              type: "error",
-              message: res.msg
-            })
-          }
-        })
-      }
+      axios.post("http://localhost:9090/student/updatePwd",{
+        username: _this.form.username,
+        password: _this.form.password
+      }).then(function (resp){
+        console.log(resp.data);
+        if(resp.data){
+          _this.$alert('修改成功','提示',{
+            confirmButtonText : '确定',
+            callback : action => {
+              location.reload();
+            }
+          });
+        }
+        else{
+          _this.$alert('修改失败','提示',{
+            confirmButtonText : '确定'
+          });
+        }
+      })
       this.dialogVisible = false
+    },
+    goBackToLogin(){
+      this.$router.push({name:'Login'})
+    },
+    handleCommand(command){
+      if(command=="a"){
+        this.changePwd();
+      }
+      else if(command=="b"){
+        this.goBackToLogin();
+      }
     }
   }
 }
 </script>
 
 <style scoped>
-.el-dropdown-link {
-  cursor: pointer;
-  color: var(--el-color-primary);
-  display: flex;
-  align-items: center;
-}
+
 </style>

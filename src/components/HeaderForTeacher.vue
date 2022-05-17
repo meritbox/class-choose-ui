@@ -8,34 +8,14 @@
     <!--2、中间栏，无内容-->
     <div style="flex: 1;"></div>
 
-    <!--3、下拉框，包括修改密码和退出登录-->
-<!--    <div style="width: 200px; margin: auto;">-->
-<!--      <el-dropdown>-->
-<!--        <el-row>-->
-<!--          &lt;!&ndash;此处会在当前用户姓名左侧显示欢迎词，但效果不理想，登录后需要重新刷新界面才能正常显示&ndash;&gt;-->
-<!--          <span style="color: #409EFF">{{ departmentName }}</span>-->
-<!--          <span class="el-dropdown-link">{{ currentUser }}-->
-<!--            <el-icon class="el-icon&#45;&#45;right"><arrow-down/></el-icon>-->
-<!--          </span>-->
-<!--        </el-row>-->
 
-<!--        -->
-<!--        <template #dropdown>-->
-<!--          <el-dropdown-menu>-->
-<!--            <el-dropdown-item @click="changePwd">修改密码</el-dropdown-item>-->
-<!--            <el-dropdown-item @click="$router.push('/login')">退出登录</el-dropdown-item>-->
-<!--            <el-dropdown-item @click="$router.push({path:'/login'})">退出登录</el-dropdown-item>-->
-<!--            <el-dropdown-item @click="$router.push({name:'Login'})">退出登录</el-dropdown-item>-->
-
-<!--          </el-dropdown-menu>-->
-<!--        </template>-->
-<!--      </el-dropdown>-->
-<!--    </div>-->
-    <div style="margin: auto" >
+    <div style="width: 200px;margin: auto" >
       <el-dropdown @command="handleCommand">
-        <span class="el-dropdown-link">
-          {{currentUser}}  {{tname}}<i class="el-icon-arrow-down el-icon--right"></i>
-        </span>
+        <span style="color: #409EFF">{{ tname }}</span>
+        <span class="el-dropdown-link">{{ currentUser }}
+            <el-icon class="el-icon--right"><arrow-down/></el-icon>
+          </span>
+
           <el-dropdown-menu slot="dropdown" >
             <el-dropdown-item command="a">修改密码</el-dropdown-item>
             <el-dropdown-item command="b">退出登录</el-dropdown-item>
@@ -121,21 +101,21 @@ export default {
           username: _this.form.username,
           password: _this.form.password
         }).then(function (resp){
-          console.log(resp.data);
-        if(resp.data){
-          _this.$alert('修改成功','提示',{
-            confirmButtonText : '确定',
-            callback : action => {
-              location.reload();
+            console.log(resp.data);
+            if(resp.data){
+              _this.$alert('修改成功','提示',{
+                confirmButtonText : '确定',
+                callback : action => {
+                  location.reload();
+                }
+              });
             }
-          });
-        }
-        else{
-          _this.$alert('修改失败','提示',{
-            confirmButtonText : '确定'
-          });
-        }
-      })
+            else{
+              _this.$alert('修改失败','提示',{
+                confirmButtonText : '确定'
+              });
+            }
+        })
       this.dialogVisible = false
     },
     goBackToLogin(){
@@ -155,11 +135,6 @@ export default {
 </script>
 
 <style scoped>
-/*.el-dropdown-link {*/
-/*  cursor: pointer;*/
-/*  color: var(--el-color-primary);*/
-/*  display: flex;*/
-/*  align-items: center;*/
-/*}*/
+
 
 </style>
