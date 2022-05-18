@@ -8,34 +8,42 @@
       <el-table-column
           prop="cno"
           label="课号"
-          width="100">
+          width="100"
+          sortable>
       </el-table-column>
       <el-table-column
           prop="cname"
           label="课程名"
-          width="180">
+          width="150"
+          sortable>
       </el-table-column>
       <el-table-column
           prop="credit"
-          label="学分">
+          label="学分"
+          sortable>
       </el-table-column>
       <el-table-column
           prop="tname"
-          label="教师">
+          label="教师"
+          sortable>
       </el-table-column>
       <el-table-column
           prop="term"
           label="学期"
-          width="100">
+          width="100"
+          sortable>
       </el-table-column>
       <el-table-column
           prop="time"
-          label="上课时间">
+          label="上课时间"
+          width="110"
+          sortable>
       </el-table-column>
       <el-table-column
           prop="department"
           label="开课学院"
-          width="130">
+          width="130"
+          sortable>
       </el-table-column>
       <el-table-column
           prop="location"
@@ -43,11 +51,14 @@
       </el-table-column>
       <el-table-column
           prop="capacity"
-          label="课程容量">
+          label="课程容量"
+          width="110"
+          sortable>
       </el-table-column>
       <el-table-column
           prop="curNum"
-          label="选课人数">
+          label="选课人数"
+          sortable>
       </el-table-column>
 
       <el-table-column label="操作" width = "400" header-align="center" >

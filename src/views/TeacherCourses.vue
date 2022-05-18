@@ -19,24 +19,28 @@
       <el-table-column
           prop="cno"
           label="课程号"
-          width="120">
+          width="120"
+          sortable>
       </el-table-column>
       <el-table-column
           prop="cname"
           label="课程名"
-          width="150">
+          width="150"
+          sortable>
       </el-table-column>
       <el-table-column
           prop="credit"
           label="学分"
-          width="120">
+          width="120"
+          sortable>
       </el-table-column>
       <el-table-column
           prop="dname"
           label="院系名称"
-          width="150">
+          width="150"
+          sortable>
       </el-table-column>
-      <el-table-column label="操作" width = "150">
+      <el-table-column label="操作" width = "230">
         <template slot-scope="scope">
           <el-button
               size="mini"

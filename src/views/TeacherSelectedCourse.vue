@@ -18,17 +18,20 @@
       <el-table-column
           prop="cno"
           label="课程号"
-          width="120">
+          width="120"
+          sortable>
       </el-table-column>
       <el-table-column
           prop="cname"
           label="课程名称"
-          width="120">
+          width="180"
+          sortable>
       </el-table-column>
       <el-table-column
           prop="term"
           label="学期"
-          width="150">
+          width="150"
+          sortable>
       </el-table-column>
 <!--      <el-table-column-->
 <!--          prop="usualGrade"-->

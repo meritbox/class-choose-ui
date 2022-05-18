@@ -8,21 +8,25 @@
       <el-table-column
           prop="tno"
           label="工号"
-          width="180">
+          width="180"
+          sortable>
       </el-table-column>
       <el-table-column
           prop="tname"
           label="教师姓名"
-          width="150">
+          width="150"
+          sortable>
       </el-table-column>
       <el-table-column
           prop="sex"
-          label="性别">
+          label="性别"
+          sortable>
       </el-table-column>
       <el-table-column
           prop="department"
           label="学院"
-          width="180">
+          width="180"
+          sortable>
       </el-table-column>
       <el-table-column label="操作" width = "150">
         <template slot-scope="scope">

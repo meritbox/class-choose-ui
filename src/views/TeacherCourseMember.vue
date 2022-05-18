@@ -1,9 +1,5 @@
 <template>
   <div>
-    <div>{{this.tno}}</div>
-    <div>{{this.term}}</div>
-    <div>{{this.cno}}</div>
-    <div>{{this.cname}}</div>
     <el-button
         size="mini"
         @click="getRefBack">返回</el-button>
@@ -15,22 +11,25 @@
       <el-table-column
           prop="sno"
           label="学号"
-          width="120">
+          width="120"
+          sortable>
       </el-table-column>
       <el-table-column
           prop="sname"
           label="学生姓名"
-          width="120">
+          width="120"
+          sortable>
       </el-table-column>
       <el-table-column
           prop="cno"
           label="课程号"
-          width="120">
+          width="120"
+          sortable>
       </el-table-column>
       <el-table-column
           prop="cname"
           label="课程名称"
-          width="120">
+          width="150">
       </el-table-column>
       <el-table-column
           prop="term"
@@ -40,17 +39,20 @@
       <el-table-column
           prop="usualGrade"
           label="平时成绩"
-          width="150">
+          width="130"
+          sortable>
       </el-table-column>
       <el-table-column
           prop="finalGrade"
           label="期末成绩"
-          width="150">
+          width="130"
+          sortable>
       </el-table-column>
       <el-table-column
           prop="totalGrade"
           label="总评成绩"
-          width="150">
+          width="130"
+          sortable>
       </el-table-column>
 
     </el-table>

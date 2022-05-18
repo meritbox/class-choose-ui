@@ -11,12 +11,14 @@
       <el-table-column
           prop="sno"
           label="学号"
-          width="120">
+          width="120"
+          sortable>
       </el-table-column>
       <el-table-column
           prop="sname"
           label="学生姓名"
-          width="120">
+          width="120"
+          sortable>
       </el-table-column>
       <el-table-column
           prop="cno"

@@ -8,7 +8,7 @@
         <el-menu-item index="/studentChoose">选课</el-menu-item>
         <el-menu-item index="/studentDrop">退课</el-menu-item>
         <el-menu-item index="/studentTimeTable">我的课表</el-menu-item>
-        <el-menu-item index="/studentInfo">学生信息</el-menu-item>
+        <el-menu-item index="/studentInfo">以往成绩</el-menu-item>
       </el-sub-menu>
     </el-menu>
   </div>

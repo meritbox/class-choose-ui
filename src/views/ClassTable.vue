@@ -70,8 +70,8 @@ export default {
       timeRow:[1,2,3,4,5,6,7,8,9,10,11,12],
 
       classTableDataLength:5,
-      sno: "19122169"
-          // this.sessionStorage.getItem("sno")
+      // sno: "19122169"
+      sno:sessionStorage.getItem("sno")
 
     }
 

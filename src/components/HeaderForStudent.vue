@@ -11,13 +11,14 @@
     <!--3、下拉框，包括修改密码和退出登录-->
     <div style="width: 200px; margin: auto;">
       <el-dropdown @command="handleCommand">
-        <el-row>
+        <el-col>
           <!--此处会在当前用户姓名左侧显示欢迎词，但效果不理想，登录后需要重新刷新界面才能正常显示-->
-          <span style="color: #409EFF">{{ sname }}</span>
-          <span class="el-dropdown-link">{{ username }}
+          <el-row :span="10" style="color: #409EFF">{{ sname }}</el-row>
+          <el-row :spam="10">平均绩点：{{avgGPA}}</el-row>
+          <el-row :span="10" class="el-dropdown-link">{{ username }}
             <el-icon class="el-icon--right"><arrow-down/></el-icon>
-          </span>
-        </el-row>
+          </el-row>
+        </el-col>
 
         <template #dropdown>
           <el-dropdown-menu slot="dropdown" >
@@ -65,6 +66,9 @@ export default {
     axios.get("http://localhost:9090/student/getSname/"+_this.username).then(function (resp) {
       _this.sname = resp.data;
     })
+    axios.get("http://localhost:9090/student/getGPABySno/"+_this.username).then(function (resp) {
+      _this.avgGPA = resp.data;
+    })
   },
   data() {
     return {
@@ -72,7 +76,8 @@ export default {
       // departmentName: sessionStorage.getItem("currentDepName"),
       dialogVisible: false,
       form: {},
-      sname:''
+      sname:'',
+      avgGPA : 0
     }
   },
   methods: {

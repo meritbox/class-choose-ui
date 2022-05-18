@@ -8,25 +8,30 @@
       <el-table-column
           prop="sno"
           label="学号"
-          width="180">
+          width="180"
+          sortable>
       </el-table-column>
       <el-table-column
           prop="sname"
           label="姓名"
-          width="180">
+          width="180"
+          sortable>
       </el-table-column>
       <el-table-column
           prop="sex"
-          label="性别">
+          label="性别"
+          sortable>
       </el-table-column>
       <el-table-column
           prop="department"
           label="学院"
-          width="180">
+          width="180"
+          sortable>
       </el-table-column>
       <el-table-column
           prop="gpa"
-          label="绩点">
+          label="绩点"
+          sortable>
       </el-table-column>
       <el-table-column label="操作" width = "150">
         <template slot-scope="scope">

@@ -16,48 +16,61 @@
         style="width: 100%">
       <el-table-column
           prop="id"
-          label="条目">
+          label="条目"
+          sortable>
       </el-table-column>
       <el-table-column
           prop="sno"
           label="学号"
-          width="150">
+          width="150"
+          sortable>
       </el-table-column>
       <el-table-column
           prop="sname"
           label="学生"
-          width="100">
+          width="100"
+          sortable>
       </el-table-column>
       <el-table-column
           prop="cno"
           label="课程号"
-          width="150">
+          width="150"
+          sortable>
       </el-table-column>
       <el-table-column
           prop="cname"
           label="课程"
-          width="200">
+          width="200"
+          sortable>
       </el-table-column>
       <el-table-column
           prop="term"
           label="学期"
-          width="130">
+          width="130"
+          sortable>
       </el-table-column>
       <el-table-column
           prop="tname"
-          label="教师">
+          label="教师"
+          sortable>
       </el-table-column>
       <el-table-column
           prop="usualGrade"
-          label="平时成绩">
+          label="平时成绩"
+          width="120"
+          sortable>
       </el-table-column>
       <el-table-column
           prop="finalGrade"
-          label="期末成绩">
+          label="期末成绩"
+          width="120"
+          sortable>
       </el-table-column>
       <el-table-column
           prop="totalGrade"
-          label="总成绩">
+          label="总成绩"
+          width="120"
+          sortable>
       </el-table-column>
 
     </el-table>

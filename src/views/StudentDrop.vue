@@ -18,16 +18,24 @@
 <!--      </el-table-column>-->
       <el-table-column
           prop="sname"
-          label="学生"
-          width="180">
+          label="学生">
+      </el-table-column>
+      <el-table-column
+          prop="cno"
+          label="课程号"
+          width="150"
+          sortable>
       </el-table-column>
       <el-table-column
           prop="cname"
-          label="课程">
+          label="课程"
+          width="150"
+          sortable>
       </el-table-column>
       <el-table-column
           prop="credit"
-          label="学分">
+          label="学分"
+          sortable>
       </el-table-column>
       <el-table-column
           prop="term"

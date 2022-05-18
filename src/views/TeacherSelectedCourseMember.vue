@@ -1,9 +1,5 @@
 <template>
   <div>
-    <div>{{this.tno}}</div>
-    <div>{{this.term}}</div>
-    <div>{{this.cno}}</div>
-    <div>{{this.cname}}</div>
     <el-input v-model="input" placeholder="请输入考试成绩在总成绩的占比%（例如50）"@change="setRate"></el-input>
     <el-button
         size="mini"
@@ -17,12 +13,14 @@
       <el-table-column
           prop="sno"
           label="学号"
-          width="120">
+          width="120"
+          sortable>
       </el-table-column>
       <el-table-column
           prop="sname"
           label="学生姓名"
-          width="120">
+          width="120"
+          sortable>
       </el-table-column>
       <el-table-column
           prop="cno"
@@ -32,7 +30,8 @@
       <el-table-column
           prop="cname"
           label="课程名称"
-          width="120">
+          width="150"
+          sortable>
       </el-table-column>
       <el-table-column
           prop="term"
@@ -42,17 +41,20 @@
       <el-table-column
           prop="usualGrade"
           label="平时成绩"
-          width="150">
+          width="130"
+          sortable>
       </el-table-column>
       <el-table-column
           prop="finalGrade"
           label="期末成绩"
-          width="150">
+          width="130"
+          sortable>
       </el-table-column>
       <el-table-column
           prop="totalGrade"
           label="总评成绩"
-          width="150">
+          width="130"
+          sortable>
       </el-table-column>
       <el-table-column label="操作" width = "150">
         <template slot-scope="scope">
