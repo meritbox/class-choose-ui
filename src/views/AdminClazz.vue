@@ -1,5 +1,6 @@
 <template>
   <div>
+    <el-input v-model="input" placeholder="模糊搜索课程名" @change="getBySearch" style="width: 200px"></el-input>
     <el-table
         :data="tableData"
         height="600"
@@ -245,7 +246,13 @@ export default {
       axios.get("http://localhost:9090/clazz/getPage/" + currentPage +'/'+ this.pageSize).then(function (resp){
         _this.tableData = resp.data;
       })
-    }
+    },
+  getBySearch(input){
+    let _this = this;
+    axios.get("http://localhost:9090/clazz/getBySearch/" + _this.input).then(function (resp){
+      _this.tableData = resp.data;
+    })
+  }
 
   },
   data() {
@@ -263,7 +270,9 @@ export default {
       pageIndex: 1,
       pageSize: 10,
 
-      total: 0
+      total: 0,
+
+      input: ''
     }
   }
 }

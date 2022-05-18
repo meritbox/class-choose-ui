@@ -1,5 +1,6 @@
 <template>
   <div>
+    <el-input v-model="input" placeholder="模糊搜索课程名" @change="getBySearch" style="width: 200px"></el-input>
     <el-table
         :data="tableData"
         height="600"
@@ -341,6 +342,12 @@ export default {
       this.$router.push({
         name: 'AdminPlanStudent'
       })
+    },
+    getBySearch(input){
+      let _this = this;
+      axios.get("http://localhost:9090/plan/getBySearch/" + _this.input).then(function (resp){
+        _this.tableData = resp.data;
+      })
     }
   },
 
@@ -362,6 +369,8 @@ export default {
       pageIndex:1,
       pageSize:10,
 
+      input : '',
+
       options: [{
         value: '2019年春',
         label: '2019年春'
@@ -375,6 +384,9 @@ export default {
         value: '2019年冬',
         label: '2019年冬'
       }, {
+          value: '2022年秋',
+          label: '2022年秋'
+        }, {
         value: '全部学期',
         label: '全部学期'
       }],

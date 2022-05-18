@@ -156,6 +156,9 @@ export default {
         value: '2019年冬',
         label: '2019年冬'
       }, {
+        value: '2022年秋',
+        label: '2022年秋'
+      }, {
         value: '全部学期',
         label: '全部学期'
       }],

@@ -33,7 +33,7 @@
           label="绩点"
           sortable>
       </el-table-column>
-      <el-table-column label="操作" width = "150">
+      <el-table-column label="操作" width = "250">
         <template slot-scope="scope">
           <el-button
               size="mini"
@@ -42,6 +42,10 @@
               size="mini"
               type="danger"
               @click="handleDelete(scope.row)">删除</el-button>
+          <el-button
+              size="mini"
+              type="primary"
+              @click="handleChangePwd(scope.row),dialogVisible3 = true">修改密码</el-button>
         </template>
 
       </el-table-column>
@@ -137,6 +141,48 @@
       <span slot="footer" class="dialog-footer">
       <el-button @click="dialogVisible2 = false">取消</el-button>
       <el-button type="primary" @click="handleAdd() ,dialogVisible2 = false">确定</el-button>
+
+    </span>
+    </el-dialog>
+
+<!--    修改学生密码-->
+    <el-dialog
+        title="修改密码"
+        :visible.sync="dialogVisible3"
+        width="30%">
+
+      <el-input
+          style="height: 50px"
+          placeholder="学号"
+          v-model="sno"
+          :disabled="true">
+      </el-input>
+
+      <el-input
+          style="height: 50px"
+          placeholder="姓名"
+          v-model="sname"
+          :disabled="true">
+      </el-input>
+      <el-input
+          style="height: 50px"
+          placeholder="输入密码"
+          v-model="password"
+          clearable
+          show-password>
+      </el-input>
+      <el-input
+          style="height: 50px"
+          placeholder="确认密码"
+          v-model="confirm"
+          clearable
+          show-password>
+      </el-input>
+
+
+      <span slot="footer" class="dialog-footer">
+      <el-button @click="dialogVisible3 = false">取消</el-button>
+      <el-button type="primary" @click="handleChangePwd2() ,dialogVisible3 = false">确定</el-button>
 
     </span>
     </el-dialog>
@@ -255,6 +301,43 @@ methods:{
     axios.get("http://localhost:9090/student/getPage/" + currentPage +'/'+ this.pageSize).then(function (resp){
       _this.tableData = resp.data;
     })
+  },
+
+  handleChangePwd(row){
+    this.sno = row.sno
+    this.sname = row.sname
+  },
+  handleChangePwd2(){
+    let _this = this
+    if (_this.password != _this.confirm) {
+      this.$message({
+        type: "error",
+        message: "两次密码不一致，请重新输入"
+      })
+      _this.password = ""
+      _this.confirm = ""
+      return;
+    }
+    axios.post("http://localhost:9090/student/updatePwd",{
+      username: _this.sno,
+      password: _this.password
+    }).then(function (resp){
+      console.log(resp.data);
+      if(resp.data){
+        _this.$alert('修改成功','提示',{
+          confirmButtonText : '确定',
+          callback : action => {
+            location.reload();
+          }
+        });
+      }
+      else{
+        _this.$alert('修改失败','提示',{
+          confirmButtonText : '确定'
+        });
+      }
+    })
+    this.dialogVisible3 = false
   }
 },
 
@@ -264,6 +347,7 @@ methods:{
       tableData: [],
       dialogVisible:false,
       dialogVisible2: false,
+      dialogVisible3: false,
       sno:'',
       sname:'',
       sex:'',
@@ -271,6 +355,7 @@ methods:{
       department:'',
       gpa:'',
       password:'',
+      confirm:'',
 
       pageIndex:1,
       pageSize:10,
