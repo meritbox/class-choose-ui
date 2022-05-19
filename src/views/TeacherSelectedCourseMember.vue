@@ -1,5 +1,6 @@
 <template>
   <div>
+    <div>请输入考试成绩在总成绩的占比%（例如50）</div>
     <el-input v-model="input" placeholder="请输入考试成绩在总成绩的占比%（例如50）"@change="setRate"></el-input>
     <el-button
         size="mini"
@@ -169,8 +170,8 @@ export default {
         console.log(_this.tableData)
       })
     },
-    setRate(value){
-      if(value>100||value<0){
+    setRate(input){
+      if(input>100||input<0){
         alert("?");
       }
     },
@@ -190,7 +191,7 @@ export default {
           sno: _this.sno,
           cno: _this.cno,
           tno: _this.tno,
-          rate: _this.value,
+          rate: _this.input,
           usualGrade: _this.usualGrade,
           finalGrade: _this.finalGrade
         }
@@ -221,9 +222,7 @@ export default {
       tno: sessionStorage.getItem("tsc_tno"),
       term: sessionStorage.getItem("tsc_term"),
       cno: sessionStorage.getItem("tsc_cno"),
-      input: '',
-      value: 50,
-
+      input: 50,
       cname: '',
       sno: '',
       sname: '',
